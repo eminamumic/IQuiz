@@ -1,0 +1,59 @@
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+
+/* Centering content */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f7fafc;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Title Styles */
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Image Styles */
+.quiz-image {
+  width: 45rem; /* Adjust the size of the image */
+  height: auto;
+  margin-bottom: 20px;
+}
+
+/* Button Styles */
+.start-button {
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  background-color: rgb(231, 173, 14);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.start-button:hover {
+  background-color: rgb(196, 152, 7);
+}
