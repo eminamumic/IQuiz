@@ -10,6 +10,7 @@ body {
   text-align: center;
   background-color: #f7fafc;
   padding: 20px;
+  position: relative;
 }
 
 /* Navbar */
@@ -113,15 +114,15 @@ button:hover {
 
 /* Difficulty Levels */
 .easy {
-  background-color: #4caf50;
+  background-color: #ffe0dc;
 }
 
 .medium {
-  background-color: #ffa500;
+  background-color: #ffb0a8;
 }
 
 .hard {
-  background-color: #e53935;
+  background-color: #ff8a80;
 }
 
 #category h2 {
@@ -162,4 +163,21 @@ button:hover {
 .question-input:focus {
   border-color: #007bff;
   outline: none;
+}
+
+.decor-image {
+  position: absolute;
+  width: 45rem; /* Veličina sličica */
+  height: auto;
+}
+
+.decor1 {
+  top: 60px;
+  left: -80px;
+}
+
+.decor2 {
+  top: 25rem;
+  right: -80px;
+  width: 50rem;
 }

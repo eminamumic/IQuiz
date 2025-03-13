@@ -48,6 +48,7 @@ startBtn.addEventListener('click', () => {
     return
   }
   getData(zahtjevi.category, zahtjevi.difficulty, zahtjevi.limit)
+  window.location.href = 'quiz.html'
 })
 
 document
