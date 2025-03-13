@@ -12,7 +12,9 @@
       <div class="logo">
         <img src="/materijal/logo.png" alt="Quiz Logo" class="logo-img" />
       </div>
-      <button class="back-btn" onclick="goBack()">Vrati se nazad</button>
+      <button id="back-to-landingpage-btn" class="back-btn" href="index.html">
+        Vrati se nazad
+      </button>
     </nav>
 
     <h1 class="title">Choose a Quiz Category</h1>
@@ -47,15 +49,15 @@
 
     <!-- Težine kviza -->
     <div class="category-container">
-      <div id="easy" class="category-card" data-difficulty="easy">
+      <div id="easy" class="category-card easy" data-difficulty="easy">
         <h2>Easy</h2>
       </div>
 
-      <div id="medium" class="category-card" data-difficulty="medium">
+      <div id="medium" class="category-card medium" data-difficulty="medium">
         <h2>Medium</h2>
       </div>
 
-      <div id="hard" class="category-card" data-difficulty="hard">
+      <div id="hard" class="category-card hard" data-difficulty="hard">
         <h2>Hard</h2>
       </div>
     </div>
