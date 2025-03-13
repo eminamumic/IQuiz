@@ -8,41 +8,75 @@
   </head>
 
   <body>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="/materijal/logo.png" alt="Quiz Logo" class="logo-img" />
+      </div>
+      <button class="back-btn" onclick="goBack()">Vrati se nazad</button>
+    </nav>
+
     <h1 class="title">Choose a Quiz Category</h1>
 
-    <div class="category-container">
-      <!-- Science Category -->
-      <div class="category-card">
+    <!-- Kategorije kviza -->
+    <div id="category" class="category-container">
+      <div id="science-card" class="category-card" data-category="science">
         <h2>Science</h2>
         <img
           src="/materijal/science.png"
           alt="Science"
           class="category-image"
-          data-category="science"
         />
       </div>
 
-      <!-- History Category -->
-      <div class="category-card">
+      <div id="music-card" class="category-card" data-category="music">
         <h2>Music</h2>
-        <img
-          src="/materijal/music.png"
-          alt="History"
-          class="category-image"
-          data-category="music"
-        />
+        <img src="/materijal/music.png" alt="Music" class="category-image" />
       </div>
 
-      <!-- Math Category -->
-      <div class="category-card">
+      <div
+        id="sport-card"
+        class="category-card"
+        data-category="sport_and_leisure"
+      >
         <h2>Sport</h2>
-        <img
-          src="/materijal/sport.png"
-          alt="Math"
-          class="category-image"
-          data-category="sport_and_leisure"
-        />
+        <img src="/materijal/sport.png" alt="Sport" class="category-image" />
       </div>
     </div>
+
+    <h1 class="title">Choose Difficulty</h1>
+
+    <!-- Težine kviza -->
+    <div class="category-container">
+      <div id="easy" class="category-card" data-difficulty="easy">
+        <h2>Easy</h2>
+      </div>
+
+      <div id="medium" class="category-card" data-difficulty="medium">
+        <h2>Medium</h2>
+      </div>
+
+      <div id="hard" class="category-card" data-difficulty="hard">
+        <h2>Hard</h2>
+      </div>
+    </div>
+
+    <h1 class="title">Choose Number of Questions</h1>
+
+    <!-- Input za broj pitanja -->
+    <div class="input-container">
+      <label for="question-count">Enter number of questions:</label>
+      <input
+        type="number"
+        id="question-number"
+        min="1"
+        max="50"
+        class="question-input"
+      />
+    </div>
+
+    <!-- Dugme za pokretanje kviza -->
+    <button id="start-quiz-btn" class="start-btn">Start Quiz</button>
+
+    <script type="module" src="/src/dashboard.js"></script>
   </body>
 </html>
