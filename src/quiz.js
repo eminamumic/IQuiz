@@ -1,3 +1,15 @@
+let questionData = null
+const questionContainer = document.querySelector('#question-container')
+let currentQuestionIndex = 0
+
+document.addEventListener('DOMContentLoaded', () => {
+  const storedQuestinData = localStorage.getItem('quizData')
+
+  questionData = JSON.parse(storedQuestinData)
+
+  showQuestion()
+})
+
 function mixAnswers(array) {
   for (let i = array.length - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1))
@@ -66,18 +78,3 @@ function showQuestion() {
 
   questionContainer.appendChild(answersContainer)
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  const storedData = localStorage.getItem('quizData')
-
-  if (!storedData) {
-    alert(
-      'Nema učitanih pitanja! Molimo vratite se nazad i pokrenite kviz ponovo.'
-    )
-    window.location.href = 'index.html'
-    return
-  }
-
-  const data = JSON.parse(storedData)
-  console.log('Učitani podaci:', data)
-})
