@@ -4,23 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quiz Question</title>
-    <link rel="stylesheet" href="/sytel/quiz.css" />
+    <link rel="stylesheet" href="/style/quiz.css" />
   </head>
   <body>
     <div class="container">
-      <div class="timer">Time left: <span id="time">30</span> sec</div>
+      <div class="timer">⏳ Time left: <span id="time">30</span> sec</div>
       <h1 class="title">Quiz Question</h1>
-      <div class="question">
-        <h2 class="question-container">What is the capital of France?</h2>
+
+      <div class="question-container">
+        <h2 class="question">What is the capital of France?</h2>
       </div>
 
       <div class="options">
-        <button class="easy">A) London</button>
-        <button class="medium">B) Berlin</button>
-        <button class="hard">C) Madrid</button>
-        <button class="hard">D) Paris</button>
+        <button class="option">A) London</button>
+        <button class="option">B) Berlin</button>
+        <button class="option">C) Madrid</button>
+        <button class="option correct">D) Paris</button>
       </div>
     </div>
+
     <script type="module" src="/src/quiz.js"></script>
   </body>
 </html>
