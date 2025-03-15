@@ -1,55 +1,54 @@
 import { getData } from './data.js'
 
-const scienceCard = document.querySelector('#science-card')
-const musicCard = document.querySelector('#music-card')
-const sportCard = document.querySelector('#sport-card')
+const userSelection = {}
 
-let zahtjevi = {}
-
-scienceCard.addEventListener('click', function () {
-  zahtjevi.category = this.getAttribute('data-category')
+document.querySelector('#science-card').addEventListener('click', function () {
+  userSelection.category = this.getAttribute('data-category')
 })
 
-musicCard.addEventListener('click', function () {
-  zahtjevi.category = this.getAttribute('data-category')
+document.querySelector('#music-card').addEventListener('click', function () {
+  userSelection.category = this.getAttribute('data-category')
 })
 
-sportCard.addEventListener('click', function () {
-  zahtjevi.category = this.getAttribute('data-category')
+document.querySelector('#sport-card').addEventListener('click', function () {
+  userSelection.category = this.getAttribute('data-category')
 })
 
-const easyBtn = document.querySelector('#easy')
-const mediumBtn = document.querySelector('#medium')
-const hardBtn = document.querySelector('#hard')
-
-easyBtn.addEventListener('click', function () {
-  zahtjevi.difficulty = this.getAttribute('data-difficulty')
+document.querySelector('#easy').addEventListener('click', function () {
+  userSelection.difficulty = this.getAttribute('data-difficulty')
 })
 
-mediumBtn.addEventListener('click', function () {
-  zahtjevi.difficulty = this.getAttribute('data-difficulty')
+document.querySelector('#medium').addEventListener('click', function () {
+  userSelection.difficulty = this.getAttribute('data-difficulty')
 })
 
-hardBtn.addEventListener('click', function () {
-  zahtjevi.difficulty = this.getAttribute('data-difficulty')
+document.querySelector('#hard').addEventListener('click', function () {
+  userSelection.difficulty = this.getAttribute('data-difficulty')
 })
 
-const questionNumber = document.querySelector('#question-number')
+document
+  .querySelector('#question-number')
+  .addEventListener('input', function () {
+    userSelection.limit = parseInt(this.value) || 1
+  })
 
-questionNumber.addEventListener('input', function () {
-  zahtjevi.limit = parseInt(questionNumber.value) || 1
-})
+document
+  .querySelector('#start-quiz-btn')
+  .addEventListener('click', async () => {
+    if (!userSelection.category || !userSelection.difficulty) {
+      alert('Molimo odaberite kategoriju i težinu prije početka kviza!')
+      return
+    }
 
-const startBtn = document.querySelector('#start-quiz-btn')
+    await getData(
+      userSelection.category,
+      userSelection.difficulty,
+      userSelection.limit
+    )
 
-startBtn.addEventListener('click', () => {
-  if (!zahtjevi.category || !zahtjevi.difficulty) {
-    alert('Molimo odaberite kategoriju i težinu prije početka kviza!')
-    return
-  }
-  getData(zahtjevi.category, zahtjevi.difficulty, zahtjevi.limit)
-  window.location.href = 'quiz.html'
-})
+    // Prebacujemo korisnika na quiz.html
+    window.location.href = 'quiz.html'
+  })
 
 document
   .querySelector('#back-to-landingpage-btn')
