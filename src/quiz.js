@@ -23,6 +23,21 @@ function highlightIncorrectAnswer(answer) {
   })
 }
 
+function checkAnswer(answer, correctAnswer) {
+  const buttons = document.querySelectorAll('button')
+  buttons.forEach((button) => (button.disabled = true))
+
+  if (answer === correctAnswer) {
+    highlightCorrectAnswer(answer)
+  } else {
+    highlightIncorrectAnswer(answer)
+  }
+  setTimeout(() => {
+    currentQuestionIndex++
+    showQuestion()
+  }, 2000)
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const storedData = localStorage.getItem('quizData')
 
