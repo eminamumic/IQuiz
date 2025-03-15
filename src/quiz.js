@@ -38,6 +38,35 @@ function checkAnswer(answer, correctAnswer) {
   }, 2000)
 }
 
+function showQuestion() {
+  questionContainer.innerHTML = ''
+
+  if (currentQuestionIndex >= questionData.length) {
+    questionContainer.innerHTML = '<h1>Kviz je završen! Hvala na učešću.</h1>'
+    return
+  }
+
+  const questionObj = questionData[currentQuestionIndex]
+  const questionText = document.createElement('h1')
+  questionText.textContent = questionObj.question.text
+  questionContainer.appendChild(questionText)
+
+  const answers = [...questionObj.incorrectAnswers, questionObj.correctAnswer]
+  mixAnswers(answers)
+
+  const answersContainer = document.createElement('div')
+  answers.forEach((answer) => {
+    const answerButton = document.createElement('button')
+    answerButton.textContent = answer
+    answerButton.addEventListener('click', () => {
+      checkAnswer(answer, questionObj.correctAnswer)
+    })
+    answersContainer.appendChild(answerButton)
+  })
+
+  questionContainer.appendChild(answersContainer)
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const storedData = localStorage.getItem('quizData')
 
