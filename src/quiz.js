@@ -55,6 +55,10 @@ function showQuestion() {
 
   if (currentQuestionIndex >= questionData.length) {
     questionContainer.innerHTML = '<h1>Kviz je završen! Hvala na učešću.</h1>'
+    localStorage.clear()
+    setTimeout(() => {
+      window.location.href = 'index.html'
+    }, 4000)
     return
   }
 

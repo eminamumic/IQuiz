@@ -33,7 +33,7 @@ body {
 }
 
 .back-btn {
-  background-color: #e74c3c;
+  background-color: rgb(97, 153, 218);
   color: white;
   border: none;
   padding: 10px 15px;
@@ -44,7 +44,7 @@ body {
 }
 
 .back-btn:hover {
-  background-color: #c0392b;
+  background-color: rgb(97, 153, 218);
 }
 
 /* Title */
@@ -130,8 +130,8 @@ button:hover {
 }
 
 #start-quiz-btn {
-  background-color: red;
-  margin-top: 1rem;
+  background-color: rgb(97, 153, 218);
+  margin-top: 5rem;
   width: 12rem;
   height: 3.5rem;
   font-size: 1.2rem;
@@ -153,7 +153,8 @@ button:hover {
   background: white;
   border-radius: 10px;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-  padding: 10px;
+  padding: 20px;
+
   width: 250px;
   font-size: 16px;
   border: 2px solid #ccc;
@@ -167,17 +168,16 @@ button:hover {
 
 .decor-image {
   position: absolute;
-  width: 45rem; /* Veličina sličica */
+  width: 26rem; /* Veličina sličica */
   height: auto;
 }
 
 .decor1 {
-  top: 60px;
-  left: -80px;
+  top: 9rem;
+  left: 5rem;
 }
 
 .decor2 {
   top: 25rem;
-  right: -80px;
-  width: 50rem;
+  right: 5.5rem;
 }

@@ -46,7 +46,6 @@ document
       userSelection.limit
     )
 
-    // Prebacujemo korisnika na quiz.html
     window.location.href = 'quiz.html'
   })
 
