@@ -1,6 +1,10 @@
 let questionData = null
 const questionContainer = document.querySelector('#question-container')
 let currentQuestionIndex = 0
+let score = {
+  correct: 0,
+  incorrect: 0,
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   const storedQuestinData = localStorage.getItem('quizData')
@@ -17,20 +21,35 @@ function mixAnswers(array) {
   }
 }
 
-function highlightCorrectAnswer(answer) {
+function resetQuestion() {
+  document.querySelector('.decor9').classList.remove('hidden')
+  document.querySelector('.decor10').classList.add('hidden')
+  document.querySelector('.decor11').classList.add('hidden')
+}
+function highlightCorrectAnswer(correctAnswer) {
+  document.querySelector('.decor9').classList.add('hidden')
+  document.querySelector('.decor11').classList.remove('hidden')
+
   const buttons = document.querySelectorAll('button')
   buttons.forEach((button) => {
-    if (button.textContent === answer) {
-      button.classList.add('correct')
+    if (button.textContent === correctAnswer) {
+      button.classList.add('correct') // Oznaci tačan odgovor zeleno
+    } else {
+      button.classList.add('incorrect') // Oznaci sve ostale crveno
     }
   })
 }
 
-function highlightIncorrectAnswer(answer) {
+function highlightIncorrectAnswer(userAnswer, correctAnswer) {
+  document.querySelector('.decor9').classList.add('hidden')
+  document.querySelector('.decor10').classList.remove('hidden')
+
   const buttons = document.querySelectorAll('button')
   buttons.forEach((button) => {
-    if (button.textContent === answer) {
-      button.classList.add('incorrect')
+    if (button.textContent === correctAnswer) {
+      button.classList.add('correct') // Tačan odgovor ZELEN
+    } else {
+      button.classList.add('incorrect') // Svi ostali CRVENI (uključujući i kliknuti)
     }
   })
 }
@@ -41,8 +60,10 @@ function checkAnswer(answer, correctAnswer) {
 
   if (answer === correctAnswer) {
     highlightCorrectAnswer(answer)
+    score.correct++
   } else {
-    highlightIncorrectAnswer(answer)
+    highlightIncorrectAnswer(answer, correctAnswer)
+    score.incorrect++
   }
   setTimeout(() => {
     currentQuestionIndex++
@@ -64,6 +85,7 @@ function showQuestion() {
 
   const questionObj = questionData[currentQuestionIndex]
   const questionText = document.createElement('h1')
+  questionText.classList.add('header-text-question')
   questionText.textContent = questionObj.question.text
   questionContainer.appendChild(questionText)
 
@@ -71,14 +93,21 @@ function showQuestion() {
   mixAnswers(answers)
 
   const answersContainer = document.createElement('div')
+  answersContainer.classList.add('answer-container')
   answers.forEach((answer) => {
     const answerButton = document.createElement('button')
+    answerButton.classList.add('answer-card')
+
     answerButton.textContent = answer
     answerButton.addEventListener('click', () => {
       checkAnswer(answer, questionObj.correctAnswer)
     })
     answersContainer.appendChild(answerButton)
+    questionContainer.appendChild(answersContainer)
   })
 
   questionContainer.appendChild(answersContainer)
+  resetQuestion()
 }
+
+console.log(questionData)

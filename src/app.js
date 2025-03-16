@@ -82,9 +82,3 @@ document
 
     window.location.href = 'quiz.html'
   })
-
-document
-  .querySelector('#back-to-landingpage-btn')
-  .addEventListener('click', () => {
-    window.location.href = 'index.html'
-  })
