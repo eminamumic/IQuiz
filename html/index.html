@@ -5,14 +5,168 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Landing Page</title>
     <link rel="stylesheet" href="/style/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <div class="content">
-      <img src="/materijal/mozak.png" alt="Quiz Image" class="quiz-image" />
-      <button id="landingpage-btn" class="start-button" href="dashboard.html">
-        Start
-      </button>
-    </div>
+    <nav class="navbar">
+      <img class="logo-img" src="/materijal/logo.png" alt="logo" />
+      <p>About Us</p>
+    </nav>
+
+    <main>
+      <section class="hero-landingpage">
+        <h1 class="header-text">
+          A challenge for your mind.<br />
+          Are you ready?
+        </h1>
+        <img src="/materijal/1.png" class="decor-image decor1" />
+        <img src="/materijal/2.png" class="decor-image decor2" />
+        <img src="/materijal/thinking.png" class="decor-image decor3" />
+        <img src="/materijal/formula1.png" class="decor-image decor4" />
+        <img src="/materijal/formula2.png" class="decor-image decor5" />
+      </section>
+
+      <section class="category-landingpage">
+        <h1 class="header-text">Choose a Quiz Category</h1>
+        <div id="category" class="category-container">
+          <div id="science-card" class="category-card" data-category="science">
+            <h2>Science</h2>
+            <img
+              src="/materijal/science.png"
+              alt="Science"
+              class="category-image"
+            />
+          </div>
+          <div id="science-card" class="category-card" data-category="science">
+            <h2>Science</h2>
+            <img
+              src="/materijal/science.png"
+              alt="Science"
+              class="category-image"
+            />
+          </div>
+          <div id="science-card" class="category-card" data-category="science">
+            <h2>Science</h2>
+            <img
+              src="/materijal/science.png"
+              alt="Science"
+              class="category-image"
+            />
+          </div>
+          <div id="science-card" class="category-card" data-category="science">
+            <h2>Science</h2>
+            <img
+              src="/materijal/science.png"
+              alt="Science"
+              class="category-image"
+            />
+          </div>
+          <div id="science-card" class="category-card" data-category="science">
+            <h2>Science</h2>
+            <img
+              src="/materijal/science.png"
+              alt="Science"
+              class="category-image"
+            />
+          </div>
+          <div id="science-card" class="category-card" data-category="science">
+            <h2>Science</h2>
+            <img
+              src="/materijal/science.png"
+              alt="Science"
+              class="category-image"
+            />
+          </div>
+          <div id="science-card" class="category-card" data-category="science">
+            <h2>Science</h2>
+            <img
+              src="/materijal/science.png"
+              alt="Science"
+              class="category-image"
+            />
+          </div>
+          <div id="science-card" class="category-card" data-category="science">
+            <h2>Science</h2>
+            <img
+              src="/materijal/science.png"
+              alt="Science"
+              class="category-image"
+            />
+          </div>
+
+          <div id="music-card" class="category-card" data-category="music">
+            <h2>Music</h2>
+            <img
+              src="/materijal/music.png"
+              alt="Music"
+              class="category-image"
+            />
+          </div>
+
+          <div
+            id="sport-card"
+            class="category-card"
+            data-category="sport_and_leisure"
+          >
+            <h2>Sport</h2>
+            <img
+              src="/materijal/sport.png"
+              alt="Sport"
+              class="category-image"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section class="difficulty-landingpage">
+        <img src="/materijal/difficulty.png" class="decor-image decor6" />
+        <h1 class="header-text">Choose Difficulty</h1>
+        <div class="category-container">
+          <div
+            id="easy"
+            class="category-card easy difficulty-options"
+            data-difficulty="easy"
+          >
+            <h2>Easy</h2>
+          </div>
+
+          <div
+            id="medium"
+            class="category-card medium difficulty-options"
+            data-difficulty="medium"
+          >
+            <h2>Medium</h2>
+          </div>
+
+          <div
+            id="hard"
+            class="category-card hard difficulty-options"
+            data-difficulty="hard"
+          >
+            <h2>Hard</h2>
+          </div>
+        </div>
+      </section>
+
+      <section class="question-number-landingpage">
+        <h1 class="header-text">Choose Number of Questions</h1>
+
+        <div class="input-container">
+          <label for="question-count"></label>
+          <input
+            type="number"
+            id="question-number"
+            min="1"
+            max="50"
+            class="question-input"
+          />
+        </div>
+      </section>
+    </main>
+
     <script type="module" src="/src/app.js"></script>
   </body>
 </html>
