@@ -5,12 +5,18 @@ let score = {
   correct: 0,
   incorrect: 0,
 }
+let countdown = null
 
 document.addEventListener('DOMContentLoaded', () => {
-  const storedQuestinData = localStorage.getItem('quizData')
+  const storedQuestionData = localStorage.getItem('quizData')
 
-  questionData = JSON.parse(storedQuestinData)
+  // If there is no quiz data in localStorage, show an error
+  if (!storedQuestionData) {
+    questionContainer.innerHTML = '<h1>Nema podataka za kviz.</h1>'
+    return
+  }
 
+  questionData = JSON.parse(storedQuestionData)
   showQuestion()
 })
 
@@ -26,6 +32,7 @@ function resetQuestion() {
   document.querySelector('.decor10').classList.add('hidden')
   document.querySelector('.decor11').classList.add('hidden')
 }
+
 function highlightCorrectAnswer(correctAnswer) {
   document.querySelector('.decor9').classList.add('hidden')
   document.querySelector('.decor11').classList.remove('hidden')
@@ -40,7 +47,7 @@ function highlightCorrectAnswer(correctAnswer) {
   })
 }
 
-function highlightIncorrectAnswer(userAnswer, correctAnswer) {
+function highlightIncorrectAnswer(correctAnswer) {
   document.querySelector('.decor9').classList.add('hidden')
   document.querySelector('.decor10').classList.remove('hidden')
 
@@ -55,6 +62,7 @@ function highlightIncorrectAnswer(userAnswer, correctAnswer) {
 }
 
 function checkAnswer(answer, correctAnswer) {
+  clearTimeout(countdown)
   const buttons = document.querySelectorAll('button')
   buttons.forEach((button) => (button.disabled = true))
 
@@ -62,9 +70,10 @@ function checkAnswer(answer, correctAnswer) {
     highlightCorrectAnswer(answer)
     score.correct++
   } else {
-    highlightIncorrectAnswer(answer, correctAnswer)
+    highlightIncorrectAnswer(correctAnswer)
     score.incorrect++
   }
+
   setTimeout(() => {
     currentQuestionIndex++
     showQuestion()
@@ -72,14 +81,11 @@ function checkAnswer(answer, correctAnswer) {
 }
 
 function showQuestion() {
-  questionContainer.innerHTML = ''
+  questionContainer.innerHTML = '' // Očisti prethodno pitanje
 
   if (currentQuestionIndex >= questionData.length) {
     questionContainer.innerHTML = '<h1>Kviz je završen! Hvala na učešću.</h1>'
-    localStorage.clear()
-    setTimeout(() => {
-      window.location.href = 'index.html'
-    }, 4000)
+    localStorage.clear() // Očisti lokalnu memoriju
     return
   }
 
@@ -94,20 +100,40 @@ function showQuestion() {
 
   const answersContainer = document.createElement('div')
   answersContainer.classList.add('answer-container')
+
   answers.forEach((answer) => {
     const answerButton = document.createElement('button')
     answerButton.classList.add('answer-card')
-
     answerButton.textContent = answer
     answerButton.addEventListener('click', () => {
       checkAnswer(answer, questionObj.correctAnswer)
     })
     answersContainer.appendChild(answerButton)
-    questionContainer.appendChild(answersContainer)
   })
-
   questionContainer.appendChild(answersContainer)
-  resetQuestion()
-}
 
-console.log(questionData)
+  // Ako timer već postoji, nemoj ga dodavati ponovo
+  if (!document.querySelector('#timer')) {
+    let timerDiv = document.createElement('div')
+    timerDiv.id = 'timer'
+    timerDiv.textContent = '10'
+    questionContainer.appendChild(timerDiv)
+  }
+
+  resetQuestion()
+
+  let timeRemaining = 10
+  countdown = setInterval(() => {
+    document.querySelector('#timer').textContent = timeRemaining // Ažuriraj preostalo vreme na stranici
+    timeRemaining--
+
+    if (timeRemaining < 0) {
+      clearInterval(countdown) // Zaustavi brojač kad istekne vreme
+      highlightIncorrectAnswer(questionObj.correctAnswer) // Prikazuje tačan odgovor nakon isteka vremena
+      setTimeout(() => {
+        currentQuestionIndex++
+        showQuestion()
+      }, 2000) // Prebaci na sledeće pitanje nakon 2 sekunde
+    }
+  }, 1000) // Ažurira preostalo vreme svake sekunde
+}
