@@ -9,10 +9,17 @@ let countdown = null
 
 document.addEventListener('DOMContentLoaded', () => {
   const storedQuestionData = localStorage.getItem('quizData')
+  const resultBtn = document.createElement('button')
+  resultBtn.textContent = 'Go back'
+  resultBtn.classList.add('start-button')
 
-  // If there is no quiz data in localStorage, show an error
   if (!storedQuestionData) {
-    questionContainer.innerHTML = '<h1>Nema podataka za kviz.</h1>'
+    questionContainer.innerHTML =
+      '<h1 class="header-text">Nema podataka za kviz.</h1>'
+    questionContainer.appendChild(resultBtn)
+    resultBtn.addEventListener('click', () => {
+      window.location.href = 'index.html'
+    })
     return
   }
 
@@ -25,6 +32,12 @@ function mixAnswers(array) {
     let j = Math.floor(Math.random() * (i + 1))
     ;[array[i], array[j]] = [array[j], array[i]]
   }
+}
+
+function hiddenIcons() {
+  document.querySelector('.decor9').classList.add('hidden')
+  document.querySelector('.decor10').classList.add('hidden')
+  document.querySelector('.decor11').classList.add('hidden')
 }
 
 function resetQuestion() {
@@ -40,9 +53,9 @@ function highlightCorrectAnswer(correctAnswer) {
   const buttons = document.querySelectorAll('button')
   buttons.forEach((button) => {
     if (button.textContent === correctAnswer) {
-      button.classList.add('correct') // Oznaci tačan odgovor zeleno
+      button.classList.add('correct')
     } else {
-      button.classList.add('incorrect') // Oznaci sve ostale crveno
+      button.classList.add('incorrect')
     }
   })
 }
@@ -54,9 +67,9 @@ function highlightIncorrectAnswer(correctAnswer) {
   const buttons = document.querySelectorAll('button')
   buttons.forEach((button) => {
     if (button.textContent === correctAnswer) {
-      button.classList.add('correct') // Tačan odgovor ZELEN
+      button.classList.add('correct')
     } else {
-      button.classList.add('incorrect') // Svi ostali CRVENI (uključujući i kliknuti)
+      button.classList.add('incorrect')
     }
   })
 }
@@ -81,11 +94,11 @@ function checkAnswer(answer, correctAnswer) {
 }
 
 function showQuestion() {
-  questionContainer.innerHTML = '' // Očisti prethodno pitanje
+  questionContainer.innerHTML = ''
 
   if (currentQuestionIndex >= questionData.length) {
-    questionContainer.innerHTML = '<h1>Kviz je završen! Hvala na učešću.</h1>'
-    localStorage.clear() // Očisti lokalnu memoriju
+    showResults()
+    localStorage.clear()
     return
   }
 
@@ -112,28 +125,70 @@ function showQuestion() {
   })
   questionContainer.appendChild(answersContainer)
 
-  // Ako timer već postoji, nemoj ga dodavati ponovo
-  if (!document.querySelector('#timer')) {
-    let timerDiv = document.createElement('div')
-    timerDiv.id = 'timer'
-    timerDiv.textContent = '10'
-    questionContainer.appendChild(timerDiv)
-  }
+  let timerDiv = document.createElement('div')
+  timerDiv.id = 'timer'
+  timerDiv.textContent = '15'
+  timerDiv.classList.add('timer')
+  questionContainer.appendChild(timerDiv)
 
   resetQuestion()
 
-  let timeRemaining = 10
+  let timer = 15
   countdown = setInterval(() => {
-    document.querySelector('#timer').textContent = timeRemaining // Ažuriraj preostalo vreme na stranici
-    timeRemaining--
+    document.querySelector('#timer').textContent = timer
+    timer--
 
-    if (timeRemaining < 0) {
-      clearInterval(countdown) // Zaustavi brojač kad istekne vreme
-      highlightIncorrectAnswer(questionObj.correctAnswer) // Prikazuje tačan odgovor nakon isteka vremena
+    if (timer < 0) {
+      clearInterval(countdown)
+      highlightIncorrectAnswer(questionObj.correctAnswer)
       setTimeout(() => {
         currentQuestionIndex++
         showQuestion()
-      }, 2000) // Prebaci na sledeće pitanje nakon 2 sekunde
+      }, 2000)
     }
-  }, 1000) // Ažurira preostalo vreme svake sekunde
+  }, 1000)
+}
+
+function showResults() {
+  questionContainer.innerHTML = ''
+
+  let resultText = ''
+  let resultImage = ''
+
+  if (score.correct === questionData.length) {
+    resultText = `Excellent! You achieved a perfect score!`
+    resultImage = '/materijal/4.png'
+    hiddenIcons()
+  } else if (score.correct >= questionData.length * 0.75) {
+    resultText = 'Great! You achieved a high score!'
+    resultImage = '/materijal/5.png'
+    hiddenIcons()
+  } else if (score.correct >= questionData.length * 0.5) {
+    resultText = 'Good! But you can do better.'
+    resultImage = '/materijal/op.png'
+    hiddenIcons()
+  } else {
+    resultText = 'Try again! You still have room for improvement.'
+    resultImage = '/materijal/3.png'
+    hiddenIcons()
+  }
+
+  const resultTextElement = document.createElement('h1')
+  resultTextElement.textContent = resultText
+  resultTextElement.classList.add('header-text-end')
+  questionContainer.appendChild(resultTextElement)
+
+  const resultImageElement = document.createElement('img')
+  resultImageElement.classList.add('end-image')
+  resultImageElement.src = resultImage
+  resultImageElement.alt = 'Quiz result'
+  questionContainer.appendChild(resultImageElement)
+
+  const resultBtn = document.createElement('button')
+  resultBtn.textContent = 'Go back'
+  resultBtn.classList.add('start-button')
+  questionContainer.appendChild(resultBtn)
+  resultBtn.addEventListener('click', () => {
+    window.location.href = 'index.html'
+  })
 }

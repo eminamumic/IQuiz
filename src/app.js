@@ -70,7 +70,7 @@ document
   .querySelector('#start-quiz-btn')
   .addEventListener('click', async () => {
     if (!userSelection.category || !userSelection.difficulty) {
-      alert('Molimo odaberite kategoriju i težinu prije početka kviza!')
+      alert('Please choose category and diificulty')
       return
     }
 
