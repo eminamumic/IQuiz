@@ -45,15 +45,6 @@ function goBackBtn(buttonText) {
   return button
 }
 
-function displayNoDataMessage(resultBtn) {
-  quizContainer.innerHTML =
-    '<h1 class="header-text">No data available for the quiz.</h1>'
-  quizContainer.appendChild(resultBtn)
-  resultBtn.addEventListener('click', () => {
-    window.location.href = 'index.html'
-  })
-}
-
 function disableAnswerButtons() {
   const buttons = document.querySelectorAll('button')
   buttons.forEach((button) => (button.disabled = true))
@@ -65,6 +56,5 @@ export {
   highlightCorrectAnswer,
   highlightIncorrectAnswer,
   goBackBtn,
-  displayNoDataMessage,
   disableAnswerButtons,
 }
