@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Landing Page</title>
+    <link rel="icon" href="/materijal/logo.png" />
+    <title>IQuiz</title>
     <link rel="stylesheet" href="/style/style.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400;700&display=swap"
@@ -15,10 +16,36 @@
       <a href="index.html"
         ><img class="logo-img" src="/materijal/logo.png" alt="logo"
       /></a>
-      <p>About Us</p>
+      <p id="about-us">About Us</p>
     </nav>
-
     <main>
+      <!-- Modal Window -->
+      <div id="modal" class="modal">
+        <div class="modal-content">
+          <span class="close-btn" id="closeBtn">&times;</span>
+          <h2 class="header-text">Welcome to IQuiz!</h2>
+
+          <div class="modal-text">
+            <p>
+              IQuiz is a quiz game designed to challenge your intellect with a
+              variety of categories. You can test your knowledge on topics like
+              Science, History, Literature, and more!
+            </p>
+            <h3>How to Play:</h3>
+            <p>To start playing:</p>
+            <ol>
+              <li>Select a category (you can only choose one).</li>
+              <li>
+                Pick your preferred difficulty level (Easy, Medium, Hard).
+              </li>
+              <li>Decide how many questions you'd like to answer.</li>
+              <li>Then, just hit start and test your brainpower!</li>
+            </ol>
+            <p>Ready to challenge yourself? Good luck!</p>
+          </div>
+        </div>
+      </div>
+
       <section class="hero-landingpage">
         <h1 class="header-text">
           A challenge for your mind.<br />
