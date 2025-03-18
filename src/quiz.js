@@ -1,31 +1,45 @@
+import {
+  hiddenIcons,
+  resetQuestionIcons,
+  highlightCorrectAnswer,
+  highlightIncorrectAnswer,
+  goBackBtn,
+} from './style.js'
+
+let countdown = null
 let questionData = null
-const questionContainer = document.querySelector('#question-container')
 let currentQuestionIndex = 0
 let score = {
   correct: 0,
   incorrect: 0,
 }
-let countdown = null
+const quizContainer = document.querySelector('#container')
 
 document.addEventListener('DOMContentLoaded', () => {
+  startQuiz()
+})
+
+function startQuiz() {
   const storedQuestionData = localStorage.getItem('quizData')
-  const resultBtn = document.createElement('button')
-  resultBtn.textContent = 'Go back'
-  resultBtn.classList.add('start-button')
+  const goBackBtn = goBackBtn('Go back')
 
   if (!storedQuestionData) {
-    questionContainer.innerHTML =
-      '<h1 class="header-text">Nema podataka za kviz.</h1>'
-    questionContainer.appendChild(resultBtn)
-    resultBtn.addEventListener('click', () => {
-      window.location.href = 'index.html'
-    })
+    displayNoDataMessage(goBackBtn)
     return
   }
 
   questionData = JSON.parse(storedQuestionData)
   showQuestion()
-})
+}
+
+function displayNoDataMessage(resultBtn) {
+  quizContainer.innerHTML =
+    '<h1 class="header-text">No data available for the quiz.</h1>'
+  quizContainer.appendChild(resultBtn)
+  resultBtn.addEventListener('click', () => {
+    window.location.href = 'index.html'
+  })
+}
 
 function mixAnswers(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -34,50 +48,9 @@ function mixAnswers(array) {
   }
 }
 
-function hiddenIcons() {
-  document.querySelector('.decor9').classList.add('hidden')
-  document.querySelector('.decor10').classList.add('hidden')
-  document.querySelector('.decor11').classList.add('hidden')
-}
-
-function resetQuestion() {
-  document.querySelector('.decor9').classList.remove('hidden')
-  document.querySelector('.decor10').classList.add('hidden')
-  document.querySelector('.decor11').classList.add('hidden')
-}
-
-function highlightCorrectAnswer(correctAnswer) {
-  document.querySelector('.decor9').classList.add('hidden')
-  document.querySelector('.decor11').classList.remove('hidden')
-
-  const buttons = document.querySelectorAll('button')
-  buttons.forEach((button) => {
-    if (button.textContent === correctAnswer) {
-      button.classList.add('correct')
-    } else {
-      button.classList.add('incorrect')
-    }
-  })
-}
-
-function highlightIncorrectAnswer(correctAnswer) {
-  document.querySelector('.decor9').classList.add('hidden')
-  document.querySelector('.decor10').classList.remove('hidden')
-
-  const buttons = document.querySelectorAll('button')
-  buttons.forEach((button) => {
-    if (button.textContent === correctAnswer) {
-      button.classList.add('correct')
-    } else {
-      button.classList.add('incorrect')
-    }
-  })
-}
-
 function checkAnswer(answer, correctAnswer) {
   clearTimeout(countdown)
-  const buttons = document.querySelectorAll('button')
-  buttons.forEach((button) => (button.disabled = true))
+  disableAnswerButtons()
 
   if (answer === correctAnswer) {
     highlightCorrectAnswer(answer)
@@ -93,21 +66,19 @@ function checkAnswer(answer, correctAnswer) {
   }, 2000)
 }
 
-function showQuestion() {
-  questionContainer.innerHTML = ''
+function disableAnswerButtons() {
+  const buttons = document.querySelectorAll('button')
+  buttons.forEach((button) => (button.disabled = true))
+}
 
-  if (currentQuestionIndex >= questionData.length) {
-    showResults()
-    localStorage.clear()
-    return
-  }
-
-  const questionObj = questionData[currentQuestionIndex]
+function displayQuestionText(questionObj) {
   const questionText = document.createElement('h1')
   questionText.classList.add('header-text-question')
   questionText.textContent = questionObj.question.text
-  questionContainer.appendChild(questionText)
+  quizContainer.appendChild(questionText)
+}
 
+function displayAnswerButtons(questionObj) {
   const answers = [...questionObj.incorrectAnswers, questionObj.correctAnswer]
   mixAnswers(answers)
 
@@ -115,23 +86,28 @@ function showQuestion() {
   answersContainer.classList.add('answer-container')
 
   answers.forEach((answer) => {
-    const answerButton = document.createElement('button')
-    answerButton.classList.add('answer-card')
-    answerButton.textContent = answer
-    answerButton.addEventListener('click', () => {
-      checkAnswer(answer, questionObj.correctAnswer)
-    })
+    const answerButton = createAnswerButton(answer, questionObj.correctAnswer)
     answersContainer.appendChild(answerButton)
   })
-  questionContainer.appendChild(answersContainer)
+  quizContainer.appendChild(answersContainer)
+}
 
+function createAnswerButton(answer, correctAnswer) {
+  const answerButton = document.createElement('button')
+  answerButton.classList.add('answer-card')
+  answerButton.textContent = answer
+  answerButton.addEventListener('click', () => {
+    checkAnswer(answer, correctAnswer)
+  })
+  return answerButton
+}
+
+function startTimer(questionObj) {
   let timerDiv = document.createElement('div')
   timerDiv.id = 'timer'
   timerDiv.textContent = '15'
   timerDiv.classList.add('timer')
-  questionContainer.appendChild(timerDiv)
-
-  resetQuestion()
+  quizContainer.appendChild(timerDiv)
 
   let timer = 15
   countdown = setInterval(() => {
@@ -149,8 +125,28 @@ function showQuestion() {
   }, 1000)
 }
 
+function questionBody() {
+  const questionObj = questionData[currentQuestionIndex]
+  displayQuestionText(questionObj)
+  displayAnswerButtons(questionObj)
+  startTimer(questionObj)
+}
+
+function showQuestion() {
+  quizContainer.innerHTML = ''
+
+  if (currentQuestionIndex >= questionData.length) {
+    showResults()
+    localStorage.clear()
+    return
+  }
+
+  questionBody()
+  resetQuestionIcons()
+}
+
 function showResults() {
-  questionContainer.innerHTML = ''
+  quizContainer.innerHTML = ''
 
   let resultText = ''
   let resultImage = ''
@@ -173,21 +169,23 @@ function showResults() {
     hiddenIcons()
   }
 
+  displayResultMessage(resultText, resultImage)
+}
+
+function displayResultMessage(resultText, resultImage) {
   const resultTextElement = document.createElement('h1')
   resultTextElement.textContent = resultText
   resultTextElement.classList.add('header-text-end')
-  questionContainer.appendChild(resultTextElement)
+  quizContainer.appendChild(resultTextElement)
 
   const resultImageElement = document.createElement('img')
   resultImageElement.classList.add('end-image')
   resultImageElement.src = resultImage
   resultImageElement.alt = 'Quiz result'
-  questionContainer.appendChild(resultImageElement)
+  quizContainer.appendChild(resultImageElement)
 
-  const resultBtn = document.createElement('button')
-  resultBtn.textContent = 'Go back'
-  resultBtn.classList.add('start-button')
-  questionContainer.appendChild(resultBtn)
+  const resultBtn = goBackBtn('Go back')
+  quizContainer.appendChild(resultBtn)
   resultBtn.addEventListener('click', () => {
     window.location.href = 'index.html'
   })

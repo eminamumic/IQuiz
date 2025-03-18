@@ -38,9 +38,17 @@ function highlightIncorrectAnswer(correctAnswer) {
   })
 }
 
+function goBackBtn(buttonText) {
+  const goBackBtn = document.createElement('button')
+  goBackBtn.textContent = buttonText
+  goBackBtn.classList.add('start-button')
+  return goBackBtn
+}
+
 export {
   hiddenIcons,
   resetQuestionIcons,
   highlightCorrectAnswer,
   highlightIncorrectAnswer,
+  goBackBtn,
 }
