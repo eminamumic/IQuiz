@@ -160,21 +160,31 @@ function showResults() {
     hiddenIcons()
   }
 
-  displayResultMessage(resultText, resultImage)
+  displayResult(resultText, resultImage)
 }
 
-function displayResultMessage(resultText, resultImage) {
+function displayResult(resultText, resultImage) {
+  displayResultMessage(resultText)
+  displayResultImage(resultImage)
+  displayGoBackBtn()
+}
+
+function displayResultMessage(resultText) {
   const resultTextElement = document.createElement('h1')
   resultTextElement.textContent = resultText
   resultTextElement.classList.add('header-text-end')
   QUIZ_CONTAINER.appendChild(resultTextElement)
+}
 
+function displayResultImage(resultImage) {
   const resultImageElement = document.createElement('img')
   resultImageElement.classList.add('end-image')
   resultImageElement.src = resultImage
   resultImageElement.alt = 'Quiz result'
   QUIZ_CONTAINER.appendChild(resultImageElement)
+}
 
+function displayGoBackBtn() {
   const resultBtn = goBackBtn('Go back')
   QUIZ_CONTAINER.appendChild(resultBtn)
   resultBtn.addEventListener('click', () => {
