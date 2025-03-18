@@ -39,10 +39,24 @@ function highlightIncorrectAnswer(correctAnswer) {
 }
 
 function goBackBtn(buttonText) {
-  const goBackBtn = document.createElement('button')
-  goBackBtn.textContent = buttonText
-  goBackBtn.classList.add('start-button')
-  return goBackBtn
+  const button = document.createElement('button')
+  button.textContent = buttonText
+  button.classList.add('start-button')
+  return button
+}
+
+function displayNoDataMessage(resultBtn) {
+  quizContainer.innerHTML =
+    '<h1 class="header-text">No data available for the quiz.</h1>'
+  quizContainer.appendChild(resultBtn)
+  resultBtn.addEventListener('click', () => {
+    window.location.href = 'index.html'
+  })
+}
+
+function disableAnswerButtons() {
+  const buttons = document.querySelectorAll('button')
+  buttons.forEach((button) => (button.disabled = true))
 }
 
 export {
@@ -51,4 +65,6 @@ export {
   highlightCorrectAnswer,
   highlightIncorrectAnswer,
   goBackBtn,
+  displayNoDataMessage,
+  disableAnswerButtons,
 }

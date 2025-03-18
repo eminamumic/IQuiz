@@ -4,6 +4,7 @@ import {
   highlightCorrectAnswer,
   highlightIncorrectAnswer,
   goBackBtn,
+  displayNoDataMessage,
 } from './style.js'
 
 let countdown = null
@@ -21,24 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function startQuiz() {
   const storedQuestionData = localStorage.getItem('quizData')
-  const goBackBtn = goBackBtn('Go back')
 
   if (!storedQuestionData) {
-    displayNoDataMessage(goBackBtn)
+    const goBackButton = goBackBtn('Go back')
+    displayNoDataMessage(goBackButton)
     return
   }
 
   questionData = JSON.parse(storedQuestionData)
   showQuestion()
-}
-
-function displayNoDataMessage(resultBtn) {
-  quizContainer.innerHTML =
-    '<h1 class="header-text">No data available for the quiz.</h1>'
-  quizContainer.appendChild(resultBtn)
-  resultBtn.addEventListener('click', () => {
-    window.location.href = 'index.html'
-  })
 }
 
 function mixAnswers(array) {
@@ -64,11 +56,6 @@ function checkAnswer(answer, correctAnswer) {
     currentQuestionIndex++
     showQuestion()
   }, 2000)
-}
-
-function disableAnswerButtons() {
-  const buttons = document.querySelectorAll('button')
-  buttons.forEach((button) => (button.disabled = true))
 }
 
 function displayQuestionText(questionObj) {
