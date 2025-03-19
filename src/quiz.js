@@ -144,19 +144,23 @@ function showResults() {
   let resultImage = ''
 
   if (SCORE === QUESTION_DATA.length) {
-    resultText = `Excellent ${USER.userName}! You achieved a perfect score!`
+    resultText = `Excellent ${USER.userName}! You achieved a perfect score!
+    ${QUESTION_DATA.length} / ${SCORE}`
     resultImage = '/materijal/4.png'
     hiddenIcons()
   } else if (SCORE >= QUESTION_DATA.length * 0.75) {
-    resultText = `Great ${USER.userName}! You achieved a high score!`
+    resultText = `Great ${USER.userName}! You achieved a high score!
+    ${QUESTION_DATA.length} / ${SCORE}`
     resultImage = '/materijal/5.png'
     hiddenIcons()
   } else if (SCORE >= QUESTION_DATA.length * 0.5) {
-    resultText = `Good ${USER.userName}! But you can do better.`
+    resultText = `Good ${USER.userName}! But you can do better.
+    ${QUESTION_DATA.length} / ${SCORE}`
     resultImage = '/materijal/op.png'
     hiddenIcons()
   } else {
-    resultText = `${USER.userName}, Try again! You still have room for improvement.`
+    resultText = `${USER.userName}, Try again! You still have room for improvement.
+    ${QUESTION_DATA.length} / ${SCORE}`
     resultImage = '/materijal/3.png'
     hiddenIcons()
   }
