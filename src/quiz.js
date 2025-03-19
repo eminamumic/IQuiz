@@ -12,6 +12,7 @@ let QUESTION_DATA = null
 let CURRENT_QUESTION_INDEX = 0
 let SCORE = 0
 const QUIZ_CONTAINER = document.querySelector('#container')
+let USER = JSON.parse(localStorage.getItem('User'))
 
 document.addEventListener('DOMContentLoaded', () => {
   startQuiz()
@@ -143,19 +144,19 @@ function showResults() {
   let resultImage = ''
 
   if (SCORE === QUESTION_DATA.length) {
-    resultText = `Excellent! You achieved a perfect score!`
+    resultText = `Excellent ${USER.userName}! You achieved a perfect score!`
     resultImage = '/materijal/4.png'
     hiddenIcons()
   } else if (SCORE >= QUESTION_DATA.length * 0.75) {
-    resultText = 'Great! You achieved a high score!'
+    resultText = `Great ${USER.userName}! You achieved a high score!`
     resultImage = '/materijal/5.png'
     hiddenIcons()
   } else if (SCORE >= QUESTION_DATA.length * 0.5) {
-    resultText = 'Good! But you can do better.'
+    resultText = `Good ${USER.userName}! But you can do better.`
     resultImage = '/materijal/op.png'
     hiddenIcons()
   } else {
-    resultText = 'Try again! You still have room for improvement.'
+    resultText = `${USER.userName}, Try again! You still have room for improvement.`
     resultImage = '/materijal/3.png'
     hiddenIcons()
   }
