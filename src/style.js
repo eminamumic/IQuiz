@@ -13,6 +13,8 @@ function resetQuestionIcons() {
 function highlightCorrectAnswer(correctAnswer) {
   document.querySelector('.decor9').classList.add('hidden')
   document.querySelector('.decor11').classList.remove('hidden')
+  let correctSound = document.querySelector('#correct-sound')
+  correctSound.play()
 
   const buttons = document.querySelectorAll('button')
   buttons.forEach((button) => {
@@ -27,7 +29,8 @@ function highlightCorrectAnswer(correctAnswer) {
 function highlightIncorrectAnswer(correctAnswer) {
   document.querySelector('.decor9').classList.add('hidden')
   document.querySelector('.decor10').classList.remove('hidden')
-
+  let wrongSound = document.querySelector('#wrong-sound')
+  wrongSound.play()
   const buttons = document.querySelectorAll('button')
   buttons.forEach((button) => {
     if (button.textContent === correctAnswer) {

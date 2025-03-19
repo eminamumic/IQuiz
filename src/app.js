@@ -82,11 +82,11 @@ let activeCardDifficulty = null
 cardsDifficulty.forEach((card) => {
   card.addEventListener('click', function () {
     if (activeCardDifficulty) {
-      activeCardDifficulty.classList.remove('highlight-card')
+      activeCardDifficulty.classList.remove('highlight-card-diff')
     }
 
     if (activeCardDifficulty !== this) {
-      this.classList.add('highlight-card')
+      this.classList.add('highlight-card-diff')
       activeCardDifficulty = this
     } else {
       activeCardDifficulty = null

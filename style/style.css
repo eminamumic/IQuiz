@@ -117,11 +117,10 @@ main {
   padding: 0px 5rem;
 }
 
-/* Kartice kategorija */
 .category-card {
   background: white;
   border-radius: 10px;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); /* Blagi sjenčanje za osnovne karte */
   padding: 20px;
   width: calc(20% - 16px);
   height: 250px;
@@ -129,11 +128,39 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, width 0.3s ease,
+    height 0.3s ease;
   cursor: pointer;
   gap: 1rem;
   color: #b55757;
   font-size: 1rem;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.2); /* Sjena koja postaje naglašenija */
+}
+
+.highlight-card {
+  background: #f0f4ff; /* Svijetla pozadina koja se ističe */
+  border: 2px solid #368be1; /* Plavi okvir za naglašenu kartu */
+  transform: translateY(-8px); /* Viši pomak za naglašene karte */
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5); /* Plavo sjenčanje */
+  width: calc(20% - 16px); /* Blaga promjena širine za naglašenu kartu */
+  height: 260px; /* Povećanje visine za naglašenu kartu */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, width 0.3s ease,
+    height 0.3s ease;
+}
+
+.highlight-card-diff {
+  background: #f0f4ff; /* Svijetla pozadina koja se ističe */
+  border: 2px solid #b55757; /* Plavi okvir za naglašenu kartu */
+  transform: translateY(-8px); /* Viši pomak za naglašene karte */
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5); /* Plavo sjenčanje */
+  width: calc(20% - 16px); /* Blaga promjena širine za naglašenu kartu */
+  height: 260px; /* Povećanje visine za naglašenu kartu */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, width 0.3s ease,
+    height 0.3s ease;
 }
 
 .answer-card {
@@ -152,16 +179,6 @@ main {
   border: none;
   color: #b55757;
   font-size: 1.8rem;
-}
-
-.category-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.3);
-}
-
-.highlight-card {
-  transform: translateY(-5px);
-  box-shadow: 0px 8px 30px rgba(54, 115, 230, 0.42);
 }
 
 .category-image {

@@ -12,6 +12,7 @@ let QUESTION_DATA = null
 let CURRENT_QUESTION_INDEX = 0
 let SCORE = 0
 const QUIZ_CONTAINER = document.querySelector('#container')
+const TICKSOUND = document.querySelector('#tick-sound')
 let USER = JSON.parse(localStorage.getItem('User'))
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -62,6 +63,8 @@ function questionBody() {
 
 function checkAnswer(answer, correctAnswer) {
   clearTimeout(COUNTDOWN)
+  TICKSOUND.pause()
+  TICKSOUND.currentTime = 0
   disableAnswerButtons()
 
   if (answer === correctAnswer) {
@@ -71,8 +74,8 @@ function checkAnswer(answer, correctAnswer) {
     highlightIncorrectAnswer(correctAnswer)
   }
 
+  CURRENT_QUESTION_INDEX++
   setTimeout(() => {
-    CURRENT_QUESTION_INDEX++
     showQuestion()
   }, 2000)
 }
@@ -124,6 +127,7 @@ function startTimer(questionObj) {
 
   COUNTDOWN = setInterval(() => {
     document.querySelector('#timer').textContent = timer
+    TICKSOUND.play()
     timer--
 
     if (timer < 0) {
@@ -137,6 +141,9 @@ function startTimer(questionObj) {
   }, 1000)
 }
 
+let BRAVO_SOUND = document.querySelector('#bravo-sound')
+let GAME_OVER_SOUND = document.querySelector('#game-over-sound')
+
 function showResults() {
   QUIZ_CONTAINER.innerHTML = ''
 
@@ -146,19 +153,29 @@ function showResults() {
   if (SCORE === QUESTION_DATA.length) {
     resultText = `Excellent ${USER.userName}!<br>You achieved a perfect score!<br>${SCORE} / ${QUESTION_DATA.length}`
     resultImage = '/materijal/4.png'
+    BRAVO_SOUND.play()
+    setTimeout(() => {
+      BRAVO_SOUND.pause()
+    }, 5000)
     hiddenIcons()
   } else if (SCORE >= QUESTION_DATA.length * 0.75) {
     resultText = `Great ${USER.userName}!<br>You achieved a high score!<br>${SCORE} / ${QUESTION_DATA.length}`
     resultImage = '/materijal/5.png'
+    BRAVO_SOUND.play()
+    setTimeout(() => {
+      BRAVO_SOUND.pause()
+    }, 5000)
     hiddenIcons()
   } else if (SCORE >= QUESTION_DATA.length * 0.5) {
     resultText = `Good ${USER.userName}!<br>But you can do better.<br>${SCORE} / ${QUESTION_DATA.length}`
     resultImage = '/materijal/op.png'
     hiddenIcons()
+    GAME_OVER_SOUND.play()
   } else {
     resultText = `${USER.userName}, Try again!<br>You still have room for improvement.<br>${SCORE} / ${QUESTION_DATA.length}`
     resultImage = '/materijal/3.png'
     hiddenIcons()
+    GAME_OVER_SOUND.play()
   }
   displayResult(resultText, resultImage)
 }
