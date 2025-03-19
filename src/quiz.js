@@ -144,27 +144,22 @@ function showResults() {
   let resultImage = ''
 
   if (SCORE === QUESTION_DATA.length) {
-    resultText = `Excellent ${USER.userName}! You achieved a perfect score!
-    ${QUESTION_DATA.length} / ${SCORE}`
+    resultText = `Excellent ${USER.userName}!<br>You achieved a perfect score!<br>${SCORE} / ${QUESTION_DATA.length}`
     resultImage = '/materijal/4.png'
     hiddenIcons()
   } else if (SCORE >= QUESTION_DATA.length * 0.75) {
-    resultText = `Great ${USER.userName}! You achieved a high score!
-    ${QUESTION_DATA.length} / ${SCORE}`
+    resultText = `Great ${USER.userName}!<br>You achieved a high score!<br>${SCORE} / ${QUESTION_DATA.length}`
     resultImage = '/materijal/5.png'
     hiddenIcons()
   } else if (SCORE >= QUESTION_DATA.length * 0.5) {
-    resultText = `Good ${USER.userName}! But you can do better.
-    ${QUESTION_DATA.length} / ${SCORE}`
+    resultText = `Good ${USER.userName}!<br>But you can do better.<br>${SCORE} / ${QUESTION_DATA.length}`
     resultImage = '/materijal/op.png'
     hiddenIcons()
   } else {
-    resultText = `${USER.userName}, Try again! You still have room for improvement.
-    ${QUESTION_DATA.length} / ${SCORE}`
+    resultText = `${USER.userName}, Try again!<br>You still have room for improvement.<br>${SCORE} / ${QUESTION_DATA.length}`
     resultImage = '/materijal/3.png'
     hiddenIcons()
   }
-
   displayResult(resultText, resultImage)
 }
 
@@ -176,7 +171,7 @@ function displayResult(resultText, resultImage) {
 
 function displayResultMessage(resultText) {
   const resultTextElement = document.createElement('h1')
-  resultTextElement.textContent = resultText
+  resultTextElement.innerHTML = resultText
   resultTextElement.classList.add('header-text-end')
   QUIZ_CONTAINER.appendChild(resultTextElement)
 }
