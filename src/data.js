@@ -7,6 +7,6 @@ export async function getData(category, difficulty, limit = 10) {
 
     localStorage.setItem('quizData', JSON.stringify(data))
   } catch (error) {
-    console.error('Greška pri dohvaćanju podataka:', error)
+    console.error('Error: ', error)
   }
 }

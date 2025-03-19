@@ -159,6 +159,11 @@ main {
   box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.3);
 }
 
+.highlight-card {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 30px rgba(54, 115, 230, 0.42);
+}
+
 .category-image {
   width: 10rem;
   height: 10rem;
@@ -385,4 +390,107 @@ main {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Blaga sjenka za 3D efekat */
   letter-spacing: 2px; /* Malo razmaknut tekst za bolju čitljivost */
   transition: transform 0.2s ease-in-out, background 0.3s ease-in-out;
+}
+
+/* Modal background */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+  cursor: pointer; /* Pointer cursor when hovering over modal background */
+}
+
+/* Modal content */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 100rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+/* Close button */
+.close-btn {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* Modal text styling */
+.modal-text {
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 20px; /* Padding for better spacing */
+
+  max-width: 80rem;
+  margin: auto;
+  text-align: left;
+  line-height: 1.6; /* Improve readability */
+}
+
+/* Title styling */
+.modal-text h3 {
+  font-size: 2rem;
+
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+/* Paragraph styling */
+.modal-text p {
+  font-size: 1.2rem;
+}
+
+/* Ordered list styling */
+.modal-text ol {
+  font-size: 1.2rem;
+
+  margin-left: 20px;
+}
+
+/* Ordered list items */
+.modal-text ol li {
+  margin-bottom: 10px;
+}
+
+/* Animation for modal text appearance */
+.modal-text {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Fade-in effect */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Modify background color on hover */
+
+.close-btn:hover,
+.close-btn:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#about-us {
+  cursor: pointer;
 }
