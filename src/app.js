@@ -3,6 +3,8 @@ import { getData } from './data.js'
 const USER_SELECTION = {}
 const CARDS_CATEGORY = document.querySelectorAll('[data-category]')
 const CARDS_DIFFICULTY = document.querySelectorAll('[data-difficulty]')
+const MODAL = document.querySelector('#modal')
+const CLOSE_BTN = document.querySelector('#closeBtn')
 let ACTIVE_CARD_CATEGORY = null
 let ACTIVE_CARD_DIFFICULTY = null
 
@@ -33,7 +35,7 @@ document
   })
 
 document.querySelector('#about-us').addEventListener('click', function () {
-  this.style.display = 'block'
+  MODAL.style.display = 'block'
 })
 
 document
@@ -41,6 +43,11 @@ document
   .addEventListener('click', async () => {
     if (!USER_SELECTION.category || !USER_SELECTION.difficulty) {
       alert('Please choose category and difficulty')
+      return
+    }
+
+    if (!USER_SELECTION.userName) {
+      alert('Plase enter your name')
       return
     }
 
@@ -82,9 +89,12 @@ CARDS_DIFFICULTY.forEach((card) => {
     }
   })
 })
-
 window.addEventListener('click', (event) => {
-  if (event.target === modal) {
-    modal.style.display = 'none'
+  if (event.target === MODAL) {
+    MODAL.style.display = 'none'
   }
+})
+
+CLOSE_BTN.addEventListener('click', () => {
+  MODAL.style.display = 'none'
 })

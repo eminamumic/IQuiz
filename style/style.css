@@ -510,8 +510,6 @@ main {
   }
 }
 
-/* Modify background color on hover */
-
 .close-btn:hover,
 .close-btn:focus {
   color: black;
