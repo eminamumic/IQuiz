@@ -1,95 +1,84 @@
 import { getData } from './data.js'
 
-const userSelection = {}
-const cardsCategory = document.querySelectorAll('[data-category]')
+const USER_SELECTION = {}
+const CARDS_CATEGORY = document.querySelectorAll('[data-category]')
+const CARDS_DIFFICULTY = document.querySelectorAll('[data-difficulty]')
+let ACTIVE_CARD_CATEGORY = null
+let ACTIVE_CARD_DIFFICULTY = null
 
-document.querySelector('#about-us').addEventListener('click', function () {
-  this.style.display = 'block'
+CARDS_CATEGORY.forEach((card) => {
+  card.addEventListener('click', function () {
+    USER_SELECTION.category = this.getAttribute('data-category')
+    localStorage.setItem('User', JSON.stringify(USER_SELECTION))
+  })
+})
+
+CARDS_DIFFICULTY.forEach((card) => {
+  card.addEventListener('click', function () {
+    USER_SELECTION.difficulty = this.getAttribute('data-difficulty')
+    localStorage.setItem('User', JSON.stringify(USER_SELECTION))
+  })
 })
 
 document.querySelector('#name-input').addEventListener('input', function () {
-  userSelection.userName = this.value
-  localStorage.setItem('User', JSON.stringify(userSelection))
-})
-
-cardsCategory.forEach((card) => {
-  card.addEventListener('click', function () {
-    userSelection.category = this.getAttribute('data-category')
-    localStorage.setItem('User', JSON.stringify(userSelection))
-  })
-})
-
-const cardsDifficulty = document.querySelectorAll('[data-difficulty]')
-
-cardsDifficulty.forEach((card) => {
-  card.addEventListener('click', function () {
-    userSelection.difficulty = this.getAttribute('data-difficulty')
-    localStorage.setItem('User', JSON.stringify(userSelection))
-  })
+  USER_SELECTION.userName = this.value
+  localStorage.setItem('User', JSON.stringify(USER_SELECTION))
 })
 
 document
   .querySelector('#question-number')
   .addEventListener('input', function () {
-    userSelection.limit = parseInt(this.value) || 1
-    localStorage.setItem('User', JSON.stringify(userSelection))
+    USER_SELECTION.limit = parseInt(this.value) || 1
+    localStorage.setItem('User', JSON.stringify(USER_SELECTION))
   })
+
+document.querySelector('#about-us').addEventListener('click', function () {
+  this.style.display = 'block'
+})
 
 document
   .querySelector('#start-quiz-btn')
   .addEventListener('click', async () => {
-    if (!userSelection.category || !userSelection.difficulty) {
+    if (!USER_SELECTION.category || !USER_SELECTION.difficulty) {
       alert('Please choose category and difficulty')
       return
     }
 
     await getData(
-      userSelection.category,
-      userSelection.difficulty,
-      userSelection.limit
+      USER_SELECTION.category,
+      USER_SELECTION.difficulty,
+      USER_SELECTION.limit
     )
 
     window.location.href = 'quiz.html'
   })
 
-const modal = document.querySelector('#modal')
-
-document.getElementById('about-us').addEventListener('click', () => {
-  modal.style.display = 'block'
-})
-
-document.querySelector('#closeBtn').addEventListener('click', () => {
-  modal.style.display = 'none'
-})
-
-let activeCardCategory = null
-cardsCategory.forEach((card) => {
+CARDS_CATEGORY.forEach((card) => {
   card.addEventListener('click', function () {
-    if (activeCardCategory) {
-      activeCardCategory.classList.remove('highlight-card')
+    if (ACTIVE_CARD_CATEGORY) {
+      ACTIVE_CARD_CATEGORY.classList.remove('highlight-card')
     }
 
-    if (activeCardCategory !== this) {
+    if (ACTIVE_CARD_CATEGORY !== this) {
       this.classList.add('highlight-card')
-      activeCardCategory = this
+      ACTIVE_CARD_CATEGORY = this
     } else {
-      activeCardCategory = null
+      ACTIVE_CARD_CATEGORY = null
     }
   })
 })
 
-let activeCardDifficulty = null
-cardsDifficulty.forEach((card) => {
+CARDS_DIFFICULTY.forEach((card) => {
   card.addEventListener('click', function () {
-    if (activeCardDifficulty) {
-      activeCardDifficulty.classList.remove('highlight-card-diff')
+    if (ACTIVE_CARD_DIFFICULTY) {
+      ACTIVE_CARD_DIFFICULTY.classList.remove('highlight-card-diff')
     }
 
-    if (activeCardDifficulty !== this) {
+    if (ACTIVE_CARD_DIFFICULTY !== this) {
       this.classList.add('highlight-card-diff')
-      activeCardDifficulty = this
+      ACTIVE_CARD_DIFFICULTY = this
     } else {
-      activeCardDifficulty = null
+      ACTIVE_CARD_DIFFICULTY = null
     }
   })
 })

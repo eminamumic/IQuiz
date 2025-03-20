@@ -11,6 +11,8 @@ let COUNTDOWN = null
 let QUESTION_DATA = null
 let CURRENT_QUESTION_INDEX = 0
 let SCORE = 0
+let BRAVO_SOUND = document.querySelector('#bravo-sound')
+let GAME_OVER_SOUND = document.querySelector('#game-over-sound')
 const QUIZ_CONTAINER = document.querySelector('#container')
 const TICKSOUND = document.querySelector('#tick-sound')
 let USER = JSON.parse(localStorage.getItem('User'))
@@ -55,10 +57,10 @@ function showQuestion() {
 }
 
 function questionBody() {
-  const questionObj = QUESTION_DATA[CURRENT_QUESTION_INDEX]
-  displayQuestionText(questionObj)
-  displayAnswerButtons(questionObj)
-  startTimer(questionObj)
+  const question = QUESTION_DATA[CURRENT_QUESTION_INDEX]
+  displayQuestionText(question)
+  displayAnswerButtons(question)
+  startTimer(question)
 }
 
 function checkAnswer(answer, correctAnswer) {
@@ -122,7 +124,6 @@ function startTimer(questionObj) {
   let timerDiv = document.createElement('div')
   let timer = 15
   timerDiv.id = 'timer'
-  timerDiv.textContent = `${timer}`
   QUIZ_CONTAINER.appendChild(timerDiv)
 
   COUNTDOWN = setInterval(() => {
@@ -132,6 +133,7 @@ function startTimer(questionObj) {
 
     if (timer < 0) {
       clearInterval(COUNTDOWN)
+      disableAnswerButtons()
       highlightIncorrectAnswer(questionObj.correctAnswer)
       CURRENT_QUESTION_INDEX++
       setTimeout(() => {
@@ -140,9 +142,6 @@ function startTimer(questionObj) {
     }
   }, 1000)
 }
-
-let BRAVO_SOUND = document.querySelector('#bravo-sound')
-let GAME_OVER_SOUND = document.querySelector('#game-over-sound')
 
 function showResults() {
   QUIZ_CONTAINER.innerHTML = ''
