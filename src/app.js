@@ -8,6 +8,10 @@ const CLOSE_BTN = document.querySelector('#closeBtn')
 let ACTIVE_CARD_CATEGORY = null
 let ACTIVE_CARD_DIFFICULTY = null
 
+document.addEventListener('DOMContentLoaded', () => {
+  localStorage.clear()
+})
+
 CARDS_CATEGORY.forEach((card) => {
   card.addEventListener('click', function () {
     USER_SELECTION.category = this.getAttribute('data-category')

@@ -10,6 +10,7 @@ import {
 let COUNTDOWN = null
 let QUESTION_DATA = null
 let CURRENT_QUESTION_INDEX = 0
+let TIMER = 14
 let SCORE = 0
 let BRAVO_SOUND = document.querySelector('#bravo-sound')
 let GAME_OVER_SOUND = document.querySelector('#game-over-sound')
@@ -47,7 +48,7 @@ function showQuestion() {
   QUIZ_CONTAINER.innerHTML = ''
 
   if (CURRENT_QUESTION_INDEX >= QUESTION_DATA.length) {
-    showResults()
+    displayResult()
     localStorage.clear()
     return
   }
@@ -122,67 +123,70 @@ function mixAnswers(array) {
 
 function startTimer(questionObj) {
   let timerDiv = document.createElement('div')
-  let timer = 14
   timerDiv.id = 'timer'
   timerDiv.textContent = '15'
   QUIZ_CONTAINER.appendChild(timerDiv)
 
   COUNTDOWN = setInterval(() => {
-    document.querySelector('#timer').textContent = timer
+    document.querySelector('#timer').textContent = TIMER
     TICKSOUND.play()
-    timer--
+    TIMER--
 
-    if (timer < 0) {
-      clearInterval(COUNTDOWN)
-      disableAnswerButtons()
-      highlightIncorrectAnswer(questionObj.correctAnswer)
-      CURRENT_QUESTION_INDEX++
-      setTimeout(() => {
-        showQuestion()
-      }, 2000)
-    }
+    checkTimer(TIMER, questionObj)
   }, 1000)
 }
 
-function showResults() {
+function checkTimer(timer, questionObj) {
+  if (timer < 0) {
+    clearInterval(COUNTDOWN)
+    disableAnswerButtons()
+    highlightIncorrectAnswer(questionObj.correctAnswer)
+    CURRENT_QUESTION_INDEX++
+    setTimeout(() => {
+      showQuestion()
+    }, 2000)
+  }
+}
+
+function resultMessage() {
   QUIZ_CONTAINER.innerHTML = ''
 
-  let resultText = ''
-  let resultImage = ''
+  let result = {}
 
   if (SCORE === QUESTION_DATA.length) {
-    resultText = `Excellent ${USER.userName}!<br>You achieved a perfect score!<br>${SCORE} / ${QUESTION_DATA.length}`
-    resultImage = '/materijal/4.png'
+    result.Text = `Excellent ${USER.userName}!<br>You achieved a perfect score!<br>${SCORE} / ${QUESTION_DATA.length}`
+    result.Image = '/materijal/4.png'
     BRAVO_SOUND.play()
     setTimeout(() => {
       BRAVO_SOUND.pause()
     }, 5000)
     hiddenIcons()
   } else if (SCORE >= QUESTION_DATA.length * 0.75) {
-    resultText = `Great ${USER.userName}!<br>You achieved a high score!<br>${SCORE} / ${QUESTION_DATA.length}`
-    resultImage = '/materijal/5.png'
+    result.Text = `Great ${USER.userName}!<br>You achieved a high score!<br>${SCORE} / ${QUESTION_DATA.length}`
+    result.Image = '/materijal/5.png'
     BRAVO_SOUND.play()
     setTimeout(() => {
       BRAVO_SOUND.pause()
     }, 5000)
     hiddenIcons()
   } else if (SCORE >= QUESTION_DATA.length * 0.5) {
-    resultText = `Good ${USER.userName}!<br>But you can do better.<br>${SCORE} / ${QUESTION_DATA.length}`
-    resultImage = '/materijal/op.png'
+    result.Text = `Good ${USER.userName}!<br>But you can do better.<br>${SCORE} / ${QUESTION_DATA.length}`
+    result.Image = '/materijal/op.png'
     hiddenIcons()
     GAME_OVER_SOUND.play()
   } else {
-    resultText = `${USER.userName}, Try again!<br>You still have room for improvement.<br>${SCORE} / ${QUESTION_DATA.length}`
-    resultImage = '/materijal/3.png'
+    result.Text = `${USER.userName}, Try again!<br>You still have room for improvement.<br>${SCORE} / ${QUESTION_DATA.length}`
+    result.Image = '/materijal/3.png'
     hiddenIcons()
     GAME_OVER_SOUND.play()
   }
-  displayResult(resultText, resultImage)
+  return result
 }
 
-function displayResult(resultText, resultImage) {
-  displayResultMessage(resultText)
-  displayResultImage(resultImage)
+function displayResult() {
+  let result = resultMessage()
+  displayResultMessage(result.Text)
+  displayResultImage(result.Image)
   displayGoBackBtn()
 }
 
