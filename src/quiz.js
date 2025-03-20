@@ -64,7 +64,7 @@ function questionBody() {
 }
 
 function checkAnswer(answer, correctAnswer) {
-  clearTimeout(COUNTDOWN)
+  clearInterval(COUNTDOWN)
   TICKSOUND.pause()
   TICKSOUND.currentTime = 0
   disableAnswerButtons()
@@ -122,8 +122,9 @@ function mixAnswers(array) {
 
 function startTimer(questionObj) {
   let timerDiv = document.createElement('div')
-  let timer = 15
+  let timer = 14
   timerDiv.id = 'timer'
+  timerDiv.textContent = '15'
   QUIZ_CONTAINER.appendChild(timerDiv)
 
   COUNTDOWN = setInterval(() => {
